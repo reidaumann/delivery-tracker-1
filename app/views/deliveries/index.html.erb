@@ -1,7 +1,5 @@
 
 
-<hr>
-
 <div>
   <div>
     <h1>
@@ -46,6 +44,13 @@
         </textarea>
       </div>
 
+      <div>
+        <label for="status_box">
+        </label>
+
+        <input type="hidden" id="status_box" name="query_status" value="waiting">
+      </div>
+
       <button>
         Log delivery
       </button>
@@ -64,32 +69,22 @@
               Supposed to arrive on <%= a_delivery.expected_arrival %><br>
           <%= a_delivery.details%><br>
           
-          <div>
-            <form action="/modify_delivery/:path_id" method="post">
-              <input type="hidden" name="arrived" value="true">
+          <form action="/modify_delivery/<%= a_delivery.id%>" method="post">
+            <div>
+              <label for="status_box">
+              </label>
 
-              <button>Mark as received</button>
-            </form>
-          </div>
+              <input type="hidden" id="status_box" name="query_status" value="received">
+            </div>
+
+            <button>
+              Mark as received
+            </button>
+          </form>
+
         </li>
       <% end %>
     </ul>
   </div>
-
-
-  <div class="received" style="background-color:lightgreen">
-    <h2>Received</h2>
-    <ul>
-      <% @list_of_deliveries.each do |a_delivery| %>
-        <li>
-          <%= a_delivery.description %><br>
-          <%= a_delivery.updated_at %>
-          <a href="/delete_delivery/<%= a_delivery.id %>">Delete</a>
-          <br>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
 
 <hr>
