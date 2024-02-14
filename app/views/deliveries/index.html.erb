@@ -1,10 +1,4 @@
-<nav>
-  <a href="/">Delivery Tracker</a>
-  |
-  <a href="/users/edit">Edit profile</a>
-  |
-  <a href="/users/sign_out">Sign out</a>
-</nav>
+
 
 <hr>
 
@@ -90,7 +84,7 @@
         <li>
           <%= a_delivery.description %><br>
           <%= a_delivery.updated_at %>
-          <a href="/delete_delivery/:path_id">Delete</a>
+          <a href="/delete_delivery/<%= a_delivery.id %>">Delete</a>
           <br>
         </li>
       <% end %>
