@@ -43,12 +43,8 @@
         <textarea id="details_box" name="query_details">
         </textarea>
       </div>
-
       <div>
-        <label for="status_box">
-        </label>
-
-        <input type="hidden" id="status_box" name="query_status" value="waiting">
+        <input type="hidden" id="user_id_box" name="query_user_id" value="<%= current_user.id %>">
       </div>
 
       <button>
@@ -60,31 +56,52 @@
 
 <hr>
 <div>
-  <div class="waiting_on" style="background-color:lightgoldenrodyellow">
-  <h2>Waiting On</h2>
-    <ul>
-      <% @list_of_deliveries.each do |a_delivery| %>
-        <li>
-          <%= a_delivery.description %><br>
-              Supposed to arrive on <%= a_delivery.expected_arrival %><br>
-          <%= a_delivery.details%><br>
-          
-          <form action="/modify_delivery/<%= a_delivery.id%>" method="post">
-            <div>
-              <label for="status_box">
-              </label>
+<div class="waiting_on">
+  <h2>Waiting on</h2>
 
-              <input type="hidden" id="status_box" name="query_status" value="received">
-            </div>
+  <ul>
+    <% current_user.waiting_on_deliveries.each do |package| %>
+      <li>
+        <div><%= package.description %></div>
 
-            <button>
-              Mark as received
-            </button>
+        <div><%= package.details %></div>
+
+        <div style="">
+          Supposed to arrive on
+          <%= package.expected_arrival %>
+        </div>
+
+        <div>
+          <form action="/modify_delivery/<%= package.id %>" method="post">
+            <input type="hidden" name="arrived" value=true>
+
+            <button>Mark as received</button>
           </form>
+        </div>
 
-        </li>
-      <% end %>
-    </ul>
-  </div>
+        <br>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="received">
+  <h2>Received</h2>
+
+  <ul>
+    <% current_user.received_deliveries.each do |package| %>
+      <li>
+        <div><%= package.description %></div>
+
+        <div style="">
+          Updated <%= time_ago_in_words(package.updated_at) %> ago
+          <a href="/delete_delivery/<%= package.id %>">Delete</a>
+        </div>
+
+        <br>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <hr>

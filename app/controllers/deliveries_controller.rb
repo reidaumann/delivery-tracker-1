@@ -22,7 +22,6 @@ class DeliveriesController < ApplicationController
     the_delivery.description = params.fetch("query_description")
     the_delivery.expected_arrival = params.fetch("query_expected_arrival")
     the_delivery.details = params.fetch("query_details")
-    the_delivery.status = params.fetch("query_status")
 
     if the_delivery.valid?
       the_delivery.save
@@ -34,14 +33,18 @@ class DeliveriesController < ApplicationController
 
   def update
     the_id = params.fetch("path_id")
-    the_delivery = Delivery.where({ :id => the_id }).at(0)
-    the_delivery.status = params.fetch("query_status")
+    the_delivery=Delivery.where(:id => the_id)
+
     the_delivery.description = params.fetch("query_description")
     the_delivery.expected_arrival = params.fetch("query_expected_arrival")
     the_delivery.details = params.fetch("query_details")
 
-    the_delivery.save
-    redirect_to("/deliveries", { :notice => "Delivery updated successfully."} )
+    if the_delivery.valid?
+      the_delivery.save
+      redirect_to("/deliveries", { :notice => "Added to list" })
+    else
+      redirect_to("/deliveries", { :alert => the_delivery.errors.full_messages.to_sentence })
+    end
   end
 
   def destroy
