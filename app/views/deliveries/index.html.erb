@@ -1,12 +1,10 @@
-
-
 <div>
   <div>
     <h1>
       Delivery Tracker
     </h1>
 
-    <p> Know if something gets lost in the mail. </p>
+    <p>Know if something gets lost in the mail.</p>
   </div>
 </div>
 
@@ -28,11 +26,11 @@
       </div>
 
       <div>
-        <label for="expected_arrival_box">
+        <label for="supposed_to_arrive_on_box">
           Supposed to arrive on
         </label>
 
-        <input type="date" id="expected_arrival_box" name="query_expected_arrival">
+        <input type="date" id="supposed_to_arrive_on_box" name="query_supposed_to_arrive_on">
       </div>
 
       <div>
@@ -40,9 +38,9 @@
           Details
         </label>
 
-        <textarea id="details_box" name="query_details">
-        </textarea>
+        <textarea id="details_box" name="query_details" rows="3"></textarea>
       </div>
+
       <div>
         <input type="hidden" id="user_id_box" name="query_user_id" value="<%= current_user.id %>">
       </div>
@@ -55,8 +53,8 @@
 </div>
 
 <hr>
-<div>
-<div class="waiting_on">
+
+<div class="waiting_on" style="background-color:lightgoldenrodyellow">
   <h2>Waiting on</h2>
 
   <ul>
@@ -68,7 +66,7 @@
 
         <div style="">
           Supposed to arrive on
-          <%= package.expected_arrival %>
+          <%= package.supposed_to_arrive_on %>
         </div>
 
         <div>
@@ -85,7 +83,7 @@
   </ul>
 </div>
 
-<div class="received">
+<div class="received" style="background-color:lightgreen">
   <h2>Received</h2>
 
   <ul>
@@ -103,5 +101,3 @@
     <% end %>
   </ul>
 </div>
-
-<hr>
